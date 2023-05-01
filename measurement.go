@@ -156,19 +156,16 @@ func addMeasurements(m1, m2 Measurable) Measurable {
 		return nil
 	}
 
-	switch m1.(type) {
+	switch m1 := m1.(type) {
 	case LengthMeasurement:
-		m1Length := m1.(LengthMeasurement)
-		m2InM1Unit := NewLengthMeasurement(m2.convertUnit(m1Length.unit), m1Length.unit)
-		newValue := m1Length.value + m2InM1Unit.convertUnit(m1Length.unit) // use convertUnit here
-		return NewLengthMeasurement(truncate(newValue), m1Length.unit)
+		m2InM1Unit := NewLengthMeasurement(m2.convertUnit(m1.unit), m1.unit)
+		newValue := m1.value + m2InM1Unit.convertUnit(m1.unit)
+		return NewLengthMeasurement(truncate(newValue), m1.unit)
 
 	case WeightMeasurement:
-		m1Weight := m1.(WeightMeasurement)
-		m2InM1Unit := NewWeightMeasurement(m2.convertUnit(m1Weight.unit), m1Weight.unit)
-		newValue := m1Weight.value + m2InM1Unit.convertUnit(m1Weight.unit) // use convertUnit here
-		fmt.Println(truncate((newValue)))
-		return NewWeightMeasurement(truncate(newValue), m1Weight.unit)
+		m2InM1Unit := NewWeightMeasurement(m2.convertUnit(m1.unit), m1.unit)
+		newValue := m1.value + m2InM1Unit.convertUnit(m1.unit)
+		return NewWeightMeasurement(truncate(newValue), m1.unit)
 
 	default:
 		return nil
@@ -180,18 +177,16 @@ func diffBetweenMeasurements(m1, m2 Measurable) Measurable {
 		return nil
 	}
 
-	switch m1.(type) {
+	switch m1 := m1.(type) {
 	case LengthMeasurement:
-		m1Length := m1.(LengthMeasurement)
-		m2InM1Unit := NewLengthMeasurement(m2.convertUnit(m1Length.unit), m1Length.unit)
-		newValue := math.Abs(m1Length.value - m2InM1Unit.convertUnit(m1Length.unit)) // use convertUnit here
-		return NewLengthMeasurement(truncate(newValue), m1Length.unit)
+		m2InM1Unit := NewLengthMeasurement(m2.convertUnit(m1.unit), m1.unit)
+		newValue := math.Abs(m1.value - m2InM1Unit.convertUnit(m1.unit))
+		return NewLengthMeasurement(truncate(newValue), m1.unit)
 
 	case WeightMeasurement:
-		m1Weight := m1.(WeightMeasurement)
-		m2InM1Unit := NewWeightMeasurement(m2.convertUnit(m1Weight.unit), m1Weight.unit)
-		newValue := math.Abs(m1Weight.value - m2InM1Unit.convertUnit(m1Weight.unit)) // use convertUnit here
-		return NewWeightMeasurement(truncate(newValue), m1Weight.unit)
+		m2InM1Unit := NewWeightMeasurement(m2.convertUnit(m1.unit), m1.unit)
+		newValue := math.Abs(m1.value - m2InM1Unit.convertUnit(m1.unit))
+		return NewWeightMeasurement(truncate(newValue), m1.unit)
 
 	default:
 		return nil
